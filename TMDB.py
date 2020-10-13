@@ -15,16 +15,18 @@ while  True:
     url = urlbase +urllib.parse.urlencode({"api_key":auth, "query": query})
     json_data = requests.get(url).json()
     print("URL: " + (url))
-    print("=============================================")
-    print ("Results: ")
+
+    
     resultcnt = 0
-    rating = 0.0
     for r in (json_data["results"]):
+        #filters out entries with a vote average of 0 
         if r["vote_average"] > 0:
-            print (r["title"])
-            rating = r["vote_average"]
-            print ("average rating: " + str(rating) )
-            resultcnt += 1
             print("=============================================")
-    print (resultcnt)
+            print ("title: \"" + r["title"] + "\"")
+            print ("release date: " + r["release_date"])
+            print ("average rating: " + str(r["vote_average"]) )
+            resultcnt += 1
     print("=============================================")
+    print("---------------------------------------------")        
+    print (str(resultcnt) + " results shown.")
+    print("---------------------------------------------")
